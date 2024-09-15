@@ -52,7 +52,7 @@ An example `settings.ini`:
 makefile
 ```bash
 [DEFAULT]
-lang = en
+lang = it
 topic = CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtbDBHZ0pKVkNnQVAB
 ```
 lang: Language of the articles (e.g., en for English, it for Italian).
