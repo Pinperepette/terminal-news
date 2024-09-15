@@ -1,8 +1,7 @@
 Terminal News is a Python package for fetching and displaying news articles from Google News directly in the terminal. It allows users to fetch news based on specific topics, display articles in a nicely formatted table, and read the content of each article interactively.
 
-![gsh command](./image/term_1.png)
+![gsh command](./image/logo.png)
 
-![gsh command](./image/term_2.png)
 
 Features:
 
@@ -11,6 +10,10 @@ Paginate through articles, with the ability to read full content of selected art
 View articles in a Rich-formatted table with alternate row styling for better readability.
 Use DuckDuckGo to resolve links and extract article content.
 Fully interactive experience with pagination and article viewing from the terminal.
+
+![gsh command](./image/term_1.png)
+
+![gsh command](./image/term_2.png)
 
 Installation:
 
