@@ -1,5 +1,9 @@
 Terminal News is a Python package for fetching and displaying news articles from Google News directly in the terminal. It allows users to fetch news based on specific topics, display articles in a nicely formatted table, and read the content of each article interactively.
 
+![gsh command](./image/term_1.png)
+
+![gsh command](./image/term_2.png)
+
 Features:
 
 Fetch and display news articles from Google News.
@@ -51,8 +55,8 @@ makefile
 lang = en
 topic = CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtbDBHZ0pKVkNnQVAB
 ```
-_    lang: Language of the articles (e.g., en for English, it for Italian).
-    topic: Topic ID for Google News to filter specific types of news._
+lang: Language of the articles (e.g., en for English, it for Italian).
+topic: Topic ID for Google News to filter specific types of news.
 
 License:
 
