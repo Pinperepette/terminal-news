@@ -12,7 +12,9 @@ setup(
         'beautifulsoup4',
         'newspaper3k',
         'rich',
-        'duckduckgo_search'
+        'duckduckgo_search',
+        'dateparser',  # Add dateparser
+        'lxml[lxml_html_clean]'  # Add lxml with html_clean
     ],
     include_package_data=True,
     package_data={'': ['settings.ini']},
