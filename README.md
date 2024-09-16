@@ -40,7 +40,7 @@ The following dependencies are required for Terminal News to work properly:
 
     **requests**: For making HTTP requests to Google News and other APIs.
     **beautifulsoup4**: For parsing HTML content and extracting news data.
-    **newspaper3k**: For extracting and processing article text from news websites.
+    **trafilatura**: For extracting and processing article text from news websites.
     **rich**: For displaying tables and formatted text in the terminal.
     **duckduckgo_search**: For resolving article links using DuckDuckGo.
 
