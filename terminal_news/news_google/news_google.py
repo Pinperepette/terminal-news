@@ -1,8 +1,8 @@
 import urllib.request
 from .utils import lexical_date_parser, define_date
 from .scraper import build_response, remove_after_last_fullstop
-from newspaper import Article
 from .scraper import GoogleNewsLinkResolver
+import trafilatura  # Sostituisce newspaper3k
 import configparser
 import os
 
@@ -11,22 +11,18 @@ def load_settings():
     Load the settings.ini file and return 'lang' and 'topic' values.
     """
     config = configparser.ConfigParser()
-    # Get the absolute path to the settings.ini file
     settings_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'settings.ini')
-    # Read the settings.ini file
     config.read(settings_path)
-    # Get 'lang' and 'topic' from the settings.ini file
     lang = config['DEFAULT']['lang']
     topic = config['DEFAULT']['topic']
-
     return lang, topic
+
 def fetch_articles():
     """
     Fetch articles based on the loaded settings and return them along with the link resolver.
     """
     lang, topic = load_settings()
 
-    # Initialize the NewsGoogle class and set the topic for the search
     news = NewsGoogle(lang=lang)
     news.set_topic(topic)
     news.search()
@@ -55,8 +51,7 @@ class NewsGoogle:
         self.__exception = False
         self.__topic = None
         self.link_resolver = GoogleNewsLinkResolver()
-        
-        # Set the headers for the request, including region if specified
+
         if region:
             self.accept_language = f'{lang}-{region},{lang};q=0.9'
             self.headers = {'User-Agent': self.user_agent, 'Accept-Language': self.accept_language}
@@ -86,13 +81,9 @@ class NewsGoogle:
         """
         Fetch the results page from Google News and parse the top news section.
         """
-        # URL for the top news section
         self.url = f"https://news.google.com/topics/{self.__topic}?hl={self.__lang}&gl={self.__lang}&ceid={self.__lang}:it"
-
-        # Get the HTML response and parse it using build_response
         result = build_response(self.url, self.headers)
 
-        # Process each news item from the result
         for item in result:
             try:
                 tmp_text = item.find("a", attrs={'jsaction': 'click:kkIcoc;'}).text.replace("\n", "") if item.find("a", attrs={'jsaction': 'click:kkIcoc;'}) else "No title available"
@@ -123,15 +114,15 @@ class NewsGoogle:
 
     def extract_article_text(self, url):
         """
-        Extract the main text of an article given its final URL using the newspaper3k library.
+        Extract the main text of an article given its final URL using Trafilatura.
         """
         try:
             final_url = self.link_resolver.resolve_link(url)
             if final_url:
-                article = Article(final_url)
-                article.download()
-                article.parse()
-                return article.text
+                # Use Trafilatura to extract the article content
+                downloaded = trafilatura.fetch_url(final_url)
+                article_text = trafilatura.extract(downloaded)
+                return article_text if article_text else "Unable to extract article content"
             else:
                 return "Unable to retrieve final article link"
         except Exception as e:

@@ -4,7 +4,7 @@ import re
 from bs4 import ResultSet
 import requests
 from duckduckgo_search import DDGS
-from newspaper import Article
+import trafilatura  # Sostituisce eventuali altre librerie di parsing
 
 def build_response(url, headers):
     """
@@ -55,17 +55,18 @@ class GoogleNewsLinkResolver:
             else:
                 return None  # Return None if no search results are found
         except Exception as e:
-            return None  # Handle any errors that occur during the search
+            print(f"Error during DuckDuckGo search: {e}")
+            return None
 
     def extract_article_text(self, link):
         """
-        Extracts the text of an article from a given link using newspaper3k.
+        Extracts the text of an article given a link using Trafilatura.
         """
         try:
-            # Use newspaper3k to extract the article text
-            article = Article(link)
-            article.download()
-            article.parse()
-            return article.text  # Return the article text
+            # Use Trafilatura to extract the article content
+            downloaded = trafilatura.fetch_url(link)
+            article_text = trafilatura.extract(downloaded)
+            return article_text if article_text else None
         except Exception as e:
-            return None  # Handle errors during article text extraction
+            print(f"Error extracting article text: {e}")
+            return None

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='terminal_news',
-    version='1.0.0',
+    version='1.1.0',
     author='Pinperepette',
     author_email='pinperepette@gmail.com',
     description='A Python package for fetching and displaying news articles from Google News in the terminal',
@@ -10,7 +10,7 @@ setup(
     install_requires=[
         'requests',
         'beautifulsoup4',
-        'newspaper3k',
+        'trafilatura',
         'rich',
         'duckduckgo_search',
         'dateparser',  # Add dateparser
